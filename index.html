@@ -51,95 +51,132 @@
         <!-- Opening -->
 				<section>
 					<h1>Intro to Browser Rendering</h1>
-                    <!-- <img src="img/circle-gdi-logo.png" alt="GDI Logo"/> -->
 					<h3>And Chrome Tools to Go With It</h3>
 					<p>
-						<small>Found at <a href ="https://elisewei.github.io/browser-rendering/">https://elisewei.github.io/browser-rendering/</a>.</small>
+						<small>Found at <a href ="https://elisewei.github.io/browser-rendering/">https://elisewei.github.io/browser-rendering/</a></small>
 					</p>
 				</section>
                 <section>
-                    <h3>Fortnight in review</h3>
-                    <div class="left-align">
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                </section>
-                <section>
                     <h3>Today we will cover</h3>
                     <ul>
-                        <li>Phases, paint, eval, etc. What parts of the content are handled by each</li>
-                        <li>Threading</li>
-                        <li>
-                            Performance
-                            <ul>
-                                <li>What to look out for: what is “costly”</li>
-                                <li>How to use the tools</li>
-                            </ul>
-                        </li>
-                        <li>Animation</li>
+                        <li>Browser performance goals</li>
+                        <li>The pre-rendering process</li>
+                        <li>The (re-)rendering process</li>
+                        <li>Chrome performance tools exercise</li>
+                        <li>Next steps</li>
                     </ul>
                 </section>
                 <!-- Class content goes here -->
                 <section>
-                    <h3>Demo page</h3>
-                    <p>Visit: <a taerget="_blank" href=""></a></p>
-                    <p><span class="green">BONUS</span>: Finished early? Try this.</p>
-                    <pre class="fragment"><code contenteditable class="javascript">
-    Code solution might go here
-                    </code></pre>
-                </section>
-                <section>
-                    <h2>Stretch break!</h2>
-                    <img src="img/cat_stretch.jpg" alt="kitty!" />
-                </section>
-                <!-- End of class -->
-                <section>
-                    <h3>Summary</h3>
+                    <h3>Browser performance goals</h3>
+                    <p>What is "good" performance?</p>
                     <ul>
-                        <li>Intro</li>
-                        <li>Exercise</li>
-                        <li>Stretch break</li>
-                        <li>Wrap up</li>
+                        <li><span class="blue">R</span>esponse to user interaction < 50ms</li>
+                        <li><span class="blue">A</span>nimation <= 10ms/frame to yield 60+ fps</li>
+                        <li><span class="blue">I</span>dle time maximized</li>
+                        <li><span class="blue">L</span>oaded &amp; interactive < 5s (3G mobile)</li>
+                    </ul>
+                    <p class="fragment"><br><a href="https://developers.google.com/web/fundamentals/performance/rail" target="_blank">RAIL (link)</a></p>
+                </section>
+                <section>
+                    <h3>The pre-rendering process</h3>
+                    <ul>
+                        <li>Browser parses HTML from top to bottom</li>
+                        <li>Loads or queues external resources as they are found</li>
+                        <li>
+                            Scripts can be set to load outside of the regular flow
+                            <ul>
+                                <li>Defer: Load after the DOM, but load and execute in order. Not supported IE&lt;10</li>
+                                <li>Async: Load and execute any time. When timing doesn't matter.</li>
+                            </ul>
+                        </li>
                     </ul>
                 </section>
                 <section>
-                    <h3>Homework (optional)</h3>
-                    <ol>
-                        <li>Describe a next-level homework task for students to tackle</li>
-                        <li>Be sure to include solutions to this and all exercises, including bonus items.</li>
-                    </ol>
-                    <p><br />Don't feel you need to finish this right away! Check into #[slack-room-name] for follow-up and questions.</p>
+                    <h3>Threads</h3>
+                    <p class="left-align">
+                        Network requests are multi-threades (several requests at once)
+                    </p>
+                    <p class="left-align">
+                        Rendering happens on a single main thread (though there are a few more for very specific tasks)
+                    </p>
                 </section>
                 <section>
-                    <h3>What next?</h3>
+                    <h3>The pre-rendering process</h3>
                     <ol>
-                        <li><a href="http://www.meetup.com/Girl-Develop-It-Philadelphia/pages/Suggested_Course_Sequences/" target="_blank">Suggested class sequences</a></li>
-                        <li>Valuable resources</li>
-                        <li>Other upcoming GDI classes/events</li>
+                        <li>HTML is parsed into the DOM</li>
+                        <li>CSS is parsed into a ruleset</li>
+                        <li>DOM + ruleset = Render tree</li>
+                        <li>Apply layout</li>
+                        <li>Paint (&amp; Composite)</li>
                     </ol>
+                    <p class="fragment">
+                        <br>This cycle can be interrupted at any time, when a script changes the HTML or CSS.
+                    </p>
                 </section>
                 <section>
-                    <h3>Get Involved</h3>
-                    <ol>
-                        <li>Join Slack community</li>
-                        <li>Teaching assist</li>
-                        <li>Teach something</li>
-                        <li>Mentor or be mentored</li>
-                    </ol>
-                    <p><a href="http://www.meetup.com/Girl-Develop-It-Philadelphia/pages/Get_Involved/" target="_blank">All forms here</a></p>
+                    <h3>The pre-rendering process</h3>
+                    <img src="img/webkitflow.png" alt="diagram showing the main browser flow for webkit" />
+                    <small><a href="https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/" target="_blank">https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/</a></small>
                 </section>
                 <section>
-                    <h3>Survey</h3>
-                    <p>We value your feedback and are always trying to improve.</p>
-                    <p><a href="" target="_blank">survey link here</a></p>
+                    <h3>The (re-)rendering process</h3>
+                    <img src="img/pixel-pipeline.jpg" alt="diagram showing the rendering cycle stages" />
+                    <small><a href="https://developers.google.com/web/fundamentals/performance/rendering/" target="_blank">https://developers.google.com/web/fundamentals/performance/rendering/</a></small>
+                </section>
+                <section>
+                    <h3>1. Input</h3>
+                    <p class="left-align">Labeled "JavaScript" in the diagram, actually represents any programmatic change to the DOM or ruleset, of which JS is one of the most common concerns when optimizing. Initial load, CSS transforms and Web Animation API events can also kick off a rendering cycle.</p>
+                </section>
+                <section>
+                    <h3>2. Styles</h3>
+                    <p class="left-align">The browser must calculate which styles should affect the new or updated elements. CSS selectors and other performance factors come into play, here.</p>
+                </section>
+                <section>
+                    <h3>3. Layout</h3>
+                    <p class="left-align">This step may or may not occur, depending on whether any updates to the element require its size or position to be recalculated. A layout pass will trigger a re-paint and re-composite and may also trigger reflow of child and sibling elements.</p>
+                </section>
+                <section>
+                    <h3>4. Paint</h3>
+                    <p class="left-align">Filling in pixels with text, images, colors, borders, etc. Paint will trigger a re-composite. This step might be skipped in favor of a composite-only, if the browser determines that neither a layout or a paint are required.</p>
+                </section>
+                <section>
+                    <h3>5. Composite</h3>
+                    <p class="left-align">Check and re-draw elements that are displayed in the same spot or overlapping on the screen. Ensures that layers stack correctly.</p>
+                </section>
+                <section>
+                    <h3>The (re-)rendering process</h3>
+                    <p>Composite-only changes are the cheapest.</p>
+                    <ul>
+                        <li>opacity</li>
+                        <li>transform</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Tools exercise</h3>
+                    <p class="left-align">Visit: <a target="_blank" href="https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/">https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/</a></p>
+                    <p class="left-align">Open the following in a Chrome Incognito window: <a target="_blank" href="https://googlechrome.github.io/devtools-samples/jank/">https://googlechrome.github.io/devtools-samples/jank/</a></p>
+                </section>
+                <section>
+                    <h3>Next steps</h3>
+                    <ul>
+                        <li>Linked articles below exercise</li>
+                        <li><a href="https://developers.google.com/web/fundamentals/performance/rail" target="_blank">Web Fundamentals - Performance</a></li>
+                        <li><a href="https://developers.google.com/web/tools/chrome-devtools/rendering-tools/" target="_blank">Tools - Runtime Performance</a></li>
+                        <li><a href="https://www.udacity.com/course/browser-rendering-optimization--ud860" target="_blank">Udacity - Browser Rendering Optimization (free)</a></li>
+                        <li>
+                            Get deep into the weeds:
+                            <ul>
+                                <li><a href="https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/" target="_blank">How Browsers Work</a> - Soup to nuts of browser software (2011)</li>
+                                <li><a href="https://aerotwist.com/blog/the-anatomy-of-a-frame/" target="_blank">The Anatomy of a Frame</a> - All about pixels (2016)</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </section>
 			</div>
   		<footer>
         <div class="copyright">
-          Official class name here -- Philadelphia --
+          <!-- Official class name here -- Philadelphia -- -->
           <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/deed.en_US"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/3.0/80x15.png" /></a>
         </div>
       </footer>

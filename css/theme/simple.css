@@ -172,7 +172,7 @@ body {
     z-index: 10; 
     font-size: 35%;
     text-align:left;
-    background-image: url(../images/pink-logo.png);
+    /*background-image: url(../images/pink-logo.png);*/
     background-repeat: no-repeat;
     background-size: auto 74%;
     background-position: 7px 0;
@@ -180,8 +180,23 @@ body {
 }
 .reveal footer .copyright{
     margin:7px 9px 0 110px;
+    margin-left: 9px;
 }
 .reveal footer .copyright a img{
     vertical-align: middle;
 }
 .reveal footer span {color: #f05b62;}
+
+/*********************************************
+* OVERRIDES
+**********************************************/
+.left-align{text-align:left}
+.right-align{ text-align:right}
+.left{float:left}
+.right{float:right}
+.clear{clear:both}
+.blue{color:#01A9B4 }
+.green{color:#92BB44}
+.yellow{color:#EDAB23}
+.pink{color:#F05B62}
+.red{color:#8B0036}

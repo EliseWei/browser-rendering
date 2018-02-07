@@ -86,8 +86,8 @@
                         <li>
                             Scripts can be set to load outside of the regular flow
                             <ul>
-                                <li>Defer: Load after the DOM, but load and execute in order. Not supported IE&lt;10</li>
-                                <li>Async: Load and execute any time. When timing doesn't matter.</li>
+                                <li><strong>Defer:</strong> Load after the DOM, but load and execute in order. Not supported IE&lt;10</li>
+                                <li><strong>Async:</strong> Load and execute any time. When timing doesn't matter.</li>
                             </ul>
                         </li>
                     </ul>
@@ -95,7 +95,7 @@
                 <section>
                     <h3>Threads</h3>
                     <p class="left-align">
-                        Network requests are multi-threades (several requests at once)
+                        Network requests are multi-threaded (several requests at once)
                     </p>
                     <p class="left-align">
                         Rendering happens on a single main thread (though there are a few more for very specific tasks)
@@ -107,11 +107,9 @@
                         <li>HTML is parsed into the DOM</li>
                         <li>CSS is parsed into a ruleset</li>
                         <li>DOM + ruleset = Render tree</li>
-                        <li>Apply layout</li>
-                        <li>Paint (&amp; Composite)</li>
                     </ol>
                     <p class="fragment">
-                        <br>This cycle can be interrupted at any time, when a script changes the HTML or CSS.
+                        <br>This cycle can be interrupted at any time, when a script changes the DOM or ruleset.
                     </p>
                 </section>
                 <section>
@@ -126,15 +124,17 @@
                 </section>
                 <section>
                     <h3>1. Input</h3>
-                    <p class="left-align">Labeled "JavaScript" in the diagram, actually represents any programmatic change to the DOM or ruleset, of which JS is one of the most common concerns when optimizing. Initial load, CSS transforms and Web Animation API events can also kick off a rendering cycle.</p>
+                    <p class="left-align">Labeled "JavaScript" in the diagram, this represents any programmatic change to the DOM or ruleset, of which JS is one of the most common concerns when optimizing. Initial load, CSS transforms and Web Animation API events can also kick off a rendering cycle.</p>
                 </section>
                 <section>
                     <h3>2. Styles</h3>
-                    <p class="left-align">The browser must calculate which styles should affect the new or updated elements. CSS selectors and other performance factors come into play, here.</p>
+                    <p class="left-align">The browser must calculate which styles should affect the new or updated elements. Selectors and other CSS performance factors come into play, here.</p>
                 </section>
                 <section>
                     <h3>3. Layout</h3>
                     <p class="left-align">This step may or may not occur, depending on whether any updates to the element require its size or position to be recalculated. A layout pass will trigger a re-paint and re-composite and may also trigger reflow of child and sibling elements.</p>
+                    <img style="height: 330px;" src="img/simplifiedexamplelayout.png" alt="simplified example of css layout" />
+                    <small><a href="https://developers.google.com/web/updates/2017/01/css-grid" target="_blank">https://developers.google.com/web/updates/2017/01/css-grid</a></small>
                 </section>
                 <section>
                     <h3>4. Paint</h3>
@@ -151,6 +151,7 @@
                         <li>opacity</li>
                         <li>transform</li>
                     </ul>
+                    <div class="transform-sample"></div>
                 </section>
                 <section>
                     <h3>Tools exercise</h3>
@@ -161,14 +162,16 @@
                     <h3>Next steps</h3>
                     <ul>
                         <li>Linked articles below exercise</li>
-                        <li><a href="https://developers.google.com/web/fundamentals/performance/rail" target="_blank">Web Fundamentals - Performance</a></li>
+                        <li><a href="https://developers.google.com/web/fundamentals/performance/rail" target="_blank">Web Fundamentals - Performance</a> (Rendering, esp)</li>
                         <li><a href="https://developers.google.com/web/tools/chrome-devtools/rendering-tools/" target="_blank">Tools - Runtime Performance</a></li>
+                        <li><a href="https://www.html5rocks.com/en/tutorials/speed/unnecessary-paints/" target="_blank">Avoid Unnecessary Paints</a></li>
                         <li><a href="https://www.udacity.com/course/browser-rendering-optimization--ud860" target="_blank">Udacity - Browser Rendering Optimization (free)</a></li>
                         <li>
                             Get deep into the weeds:
                             <ul>
                                 <li><a href="https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/" target="_blank">How Browsers Work</a> - Soup to nuts of browser software (2011)</li>
                                 <li><a href="https://aerotwist.com/blog/the-anatomy-of-a-frame/" target="_blank">The Anatomy of a Frame</a> - All about pixels (2016)</li>
+                                <li><a href="https://www.html5rocks.com/en/tutorials/speed/css-paint-times/" target="_blank">CSS Paint Times</a> - Render weight nerdery (2013)</li>
                             </ul>
                         </li>
                     </ul>

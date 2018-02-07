@@ -200,3 +200,16 @@ body {
 .yellow{color:#EDAB23}
 .pink{color:#F05B62}
 .red{color:#8B0036}
+
+.reveal .transform-sample {
+  margin: 20px auto 0;
+  height: 200px;
+  width: 200px;
+  border-radius: 20%;
+  background-color: #01A9B4;
+  transition: .7s all ease;
+}
+.reveal .transform-sample:hover {
+  transform: translateX(20%) rotate(360deg);
+  opacity: .2;
+}
